@@ -1,0 +1,62 @@
+{
+  "errors": {
+    "names": {
+      "BadRequestException": "Виняток поганого запиту",
+      "ForbiddenException": "Виняток заборони",
+      "ServerException": "Виняток серверу",
+      "NotFoundException": "Виняток не знайдено",
+      "UnknownException": "Невідомий виняток",
+      "ConnectionException": "Виняток підключення",
+      "Error": "Помилка"
+    },
+    "messages": {
+      "USER_NOT_FOUND": "Користувач не знайдений у запиті",
+      "CANNOT_CREATE_MODEL": "неможливо створити модель",
+      "CANNOT_FIND_MODEL": "неможливо знайти модель",
+      "CANNOT_UPDATE_MODEL": "неможливо оновити модель",
+      "CANNOT_DELETE_MODEL": "неможливо видалити модель",
+      "CANNOT_SEND_EMAIL": "неможливо надіслати електронний лист",
+      "USER_WITH_PHONE_ALREADY_EXISTS": "користувач з таким номером телефону вже існує",
+      "CLUB_ALREADY_EXISTS": "клуб з таким іменем вже існує",
+      "Bad Request Exception": "Виняток поганого запиту",
+      "Forbidden Exception": "Виняток заборони",
+      "Server Exception": "Виняток серверу",
+      "Not Found Exception": "Виняток не знайдено",
+      "Unknown Exception": "Невідомий виняток",
+      "Connection Exception": "Виняток підключення",
+      "Error": "Помилка"
+    }
+  },
+  "bot": {
+    "messages": {
+      "start": "Привіт {firstName}! Я бот для реєстрації в клубі '{clubName}'.\nБудь-ласка, надішли мені свій контакт для продовження.",
+      "invalidStart": "Привіт {firstName}! Для початку процесу, будь-ласка, надішли мені повідомлення типу: /start 'club_id'",
+      "noClub": "Пробач, я не можу знайти клуб з id '{clubId}'. Будь-ласка, спробуй знову!",
+      "noPhoneNumber": "В твоїх контактних даних немає номеру телефону. Будь-ласка, надішли його самостійно.",
+      "invalidPhoneNumber": "'{phone}' не є підтримуваним номером телефону. Спробуй знову!",
+      "welcomeBack": "Ласкаво просимо назад до клубу '{clubName}', {firstName}!",
+      "welcomeBackVeteran": "Ласкаво просимо назад до клубу '{clubName}', {firstName}!\nТвої клуби це: ",
+      "registeredInSystem": "Ласкаво просимо назад до системи, {firstName}!\nЯ збираюся зареєструвати тебе до '{clubName}'!",
+      "credentials": "Отже, твої контактні дані: \nІм'я: {firstName}, \nПрізвище: {lastName}, \nНомер телефону: {phone}. \nВірно?",
+      "register": "Дякую тобі за реєстрацію!\nТвій клуб: '{clubName}'.",
+      "assignToClub": "Дякую тобі за реєстрацію до '{clubName}'!\nТепер твої клуби це: ",
+      "name": "Надішли мені свої 'Ім'я Прізвище'!",
+      "coach": "Тренер"
+    },
+    "errors": {
+      "error": "Щось пішло не так... Будь-ласка, спробуй знову!",
+      "phoneValidationError": "Пробач, я не зміг вдало перевірити твій номер телефону... Будь-ласка, спробуй знову!",
+      "registrationError": "Пробач, я не зміг вдало зареєструвати тебе... Будь-ласка, спробуй знову!"
+    },
+    "options": {
+      "credentials": {
+        "send": "Надіслати контакт",
+        "cancel": "Скасувати"
+      },
+      "yesOrNo": {
+        "yes": "Так",
+        "no": "Ні"
+      }
+    }
+  }
+}

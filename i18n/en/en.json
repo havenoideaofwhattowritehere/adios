@@ -1,0 +1,62 @@
+{
+  "errors": {
+    "names": {
+      "BadRequestException": "Bad request exception",
+      "ForbiddenException": "Forbidden exception",
+      "ServerException": "Server exception",
+      "NotFoundException": "Not found exception",
+      "UnknownException": "Unknown exception",
+      "ConnectionException": "Connection exception",
+      "Error": "Error"
+    },
+    "messages": {
+      "USER_NOT_FOUND": "User not found in request",
+      "CANNOT_CREATE_MODEL": "can not create model",
+      "CANNOT_FIND_MODEL": "can not find model",
+      "CANNOT_UPDATE_MODEL": "can not update model",
+      "CANNOT_DELETE_MODEL": "can not delete model",
+      "CANNOT_SEND_EMAIL": "can not send email",
+      "USER_WITH_PHONE_ALREADY_EXISTS": "user with this phone number already exists",
+      "CLUB_ALREADY_EXISTS": "club with this name already exists",
+      "Bad Request Exception": "Bad request exception",
+      "Forbidden Exception": "Forbidden exception",
+      "Server Exception": "Server exception",
+      "Not Found Exception": "Not found exception",
+      "Unknown Exception": "Unknown exception",
+      "Connection Exception": "Connection exception",
+      "Error": "Error"
+    }
+  },
+  "bot": {
+    "messages": {
+      "start": "Hello {firstName}! I am a registration bot for club '{clubName}'. Please, send me your contact to proceed.",
+      "invalidStart": "Hello {firstName}! To start the process, please, send me message like this: /start 'club_id'",
+      "noClub": "Sorry, I can't find club with id '{clubId}'. Please, try again!",
+      "noPhoneNumber": "There is no phone number in your credentials. Please write it by yourself.",
+      "invalidPhoneNumber": "'{phone}' is not a valid phone number. Try again!",
+      "welcomeBack": "Welcome back to club '{clubName}', {firstName}!",
+      "welcomeBackVeteran": "Welcome back to club '{clubName}', {firstName}!\nYour clubs are: ",
+      "registeredInSystem": "Welcome back to system, {firstName}!\nI am going to register you to '{clubName}'!",
+      "credentials": "So, your credentials are: \nFirst name: {firstName}, \nLast name: {lastName}, \nPhone number: {phone}. \nRight?",
+      "register": "Thank you for your registration!\nYour club is '{clubName}'.",
+      "assignToClub": "Thank you for your registration to '{clubName}'!\nNow your clubs are: ",
+      "name": "Send me your 'Firstname Lastname'!",
+      "coach": "Coach"
+    },
+    "errors": {
+      "error": "Something went wrong... Please, try again!",
+      "phoneValidationError": "Sorry, I failed validating your phone number... Please, try again!",
+      "registrationError": "Sorry, I failed registering you... Please, try again!"
+    },
+    "options": {
+      "credentials": {
+        "send": "Send contact",
+        "cancel": "Cancel"
+      },
+      "yesOrNo": {
+        "yes": "Yes",
+        "no": "No"
+      }
+    }
+  }
+}

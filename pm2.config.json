@@ -1,0 +1,14 @@
+{
+  "apps": [
+    {
+      "name": "sportcrm",
+      "script": "dist/main.js",
+      "watch": true,
+      "max_restarts": 10,
+      "restart_delay": 5000,
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+stages:
+  - test
+  - build
+  - deploy
+  - validate
+
+variables:
+  DOMAIN_DEV: dev1-api.playsport.com.ua
+  DOMAIN_PROD: api.playsport.com.ua
+  ROUTER_NAME_DEV: sportcrm-be-dev
+  ROUTER_NAME_PROD: sportcrm-be-prod
+  URL_DEV: https://dev1.playsport.com.ua
+  URL_PROD: https://playsport.com.ua
+  
+
+.test_image:
+  script:
+    - npm install
+    - npm run test
+  image: node:18
+  tags:
+    - deploymentBE
+  stage: test
+
+.deploy_image:
+  script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker compose down --remove-orphans
+    - docker compose up -d
+  image: docker:latest
+  services:
+    - docker:dind
+  stage: deploy
+  tags:
+    - deploymentBE
+
+.verify_image:
+  stage: validate
+  image: curlimages/curl:latest
+  tags:
+    - deploymentBE
+  retry: 2
+  script:
+    - |
+      echo "Verifying deployed version..."
+
+      RESPONSE=$(curl -s -w "%{http_code}" -o response.txt https://${DOMAIN}/version)
+      HTTP_STATUS="${RESPONSE: -3}"
+      DEPLOYED_VERSION=$(cat response.txt)
+      rm response.txt
+
+      echo "HTTP Status: $HTTP_STATUS"
+      echo "Deployed Version: $DEPLOYED_VERSION"
+      echo "Expected Version: $CI_COMMIT_SHA"
+
+      if [ "$HTTP_STATUS" -ne 200 ]; then
+        echo "Unexpected HTTP status code: $HTTP_STATUS"
+        exit 1
+      fi
+
+      if [ "$DEPLOYED_VERSION" != "$CI_COMMIT_SHA" ]; then
+        echo "Deployed version does not match expected version! Deployed: $DEPLOYED_VERSION, Expected: $CI_COMMIT_SHA"
+        exit 1
+      fi
+
+      echo "Deployed version matches expected version: $DEPLOYED_VERSION"
+
+test:
+  extends: .test_image
+
+build:
+  image: docker:latest
+  services:
+    - docker:dind
+  stage: build
+  tags:
+    - deploymentBE
+  script:
+    - echo "Building Docker image..."
+    - docker build --build-arg VERSION=$CI_COMMIT_SHA -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+
+deploy-dev1:
+  extends:
+    - .deploy_image
+  variables:
+    ROUTER_NAME: $ROUTER_NAME_DEV
+    DOMAIN: $DOMAIN_DEV
+    CORS_ORIGIN: $URL_DEV
+    PUSH_SUBJECT: $URL_DEV
+  only:
+    - dev
+
+deploy-prod:
+  extends:
+    - .deploy_image
+  variables:
+    ROUTER_NAME: $ROUTER_NAME_PROD
+    DOMAIN: $DOMAIN_PROD
+    CORS_ORIGIN: $URL_PROD
+    PUSH_SUBJECT: $URL_PROD
+  only:
+    - main
+
+verify-deploy-dev1:
+  extends:
+    - .verify_image
+  variables:
+    DOMAIN: $DOMAIN_DEV
+  only:
+    - main
+
+verify-deploy-prod:
+  extends:
+    - .verify_image
+  variables:
+    DOMAIN: $DOMAIN_PROD
+  only:
+    - main
